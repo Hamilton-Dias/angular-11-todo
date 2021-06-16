@@ -1,0 +1,107 @@
+header {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: #00B4CC;
+    padding: 10px 20px;
+}
+
+main {
+    margin: 0 auto;
+    width: 100%;
+    max-width: 600px;
+
+    .task-card {
+        background: #fff;
+        border-radius: 2px;
+        display: inline-block;
+        margin: 10px;
+        position: relative;
+        width: 100%;
+        box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
+        transition: all .5s;
+
+        &:hover {
+            box-shadow: 0 19px 38px rgba(0,0,0,0.30), 0 15px 12px rgba(0,0,0,0.22);
+        }
+
+        .task-card-header {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: space-between;
+            background-color: #cfccff;
+            padding: 10px 20px;
+
+            .actions {
+                width: 40px;
+                display: flex;
+                flex-direction: row;
+                align-items: center;
+                justify-content: space-between;
+
+                button {
+                    border: none;
+
+                    &:hover {
+                        cursor: pointer;
+                    }
+                }
+
+                input {
+                    height: 30px;
+
+                    &:hover {
+                        cursor: pointer;
+                    }
+                }
+            }
+        }
+
+        .task-card-description {
+            padding: 10px;
+
+            p:first-child {
+                margin: 10px 0;
+            }
+        }
+
+        .task-card-footer {
+            padding: 5px 10px;
+            margin: 5px 10px;
+            border: 2px solid #a8a8a8;
+            border-radius: 5px;
+            display: flex;
+            flex-direction: row;
+            justify-content: flex-start;
+            align-items: center;
+            flex-wrap: wrap;
+
+            .tag-item {
+                display: flex;
+                flex-direction: row;
+                justify-content: center;
+                align-items: center;
+                border: 1px solid #d1d1d1;
+                border-radius: 1px;
+                margin-right: 10px;
+                padding: 3px 5px;
+                
+                span {
+                    font-size: 16px;
+                    color: #4235fc;
+                }
+
+                .fa {
+                    font-size: 12px;
+                    margin-left: 5px;
+
+                    &:hover {
+                        cursor: pointer;
+                    }
+                }
+            }
+        }
+    }
+}
