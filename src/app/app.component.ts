@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { v4 as uuidv4 } from 'uuid';
 
-interface Tasks {
+interface Task {
   _id: string;
   title: string;
   description: string;
@@ -17,7 +17,7 @@ interface Tasks {
 export class AppComponent {
   title = 'todo';
 
-  tasks: Tasks[] = [
+  tasks: Task[] = [
     {
       _id: uuidv4(),
       title: 'Tomar banho',
@@ -44,6 +44,12 @@ export class AppComponent {
   removeTask(id: string) {
     this.tasks = this.tasks.filter(task => {
       return task._id != id
+    })
+  }
+
+  removeTagFromTask(tagIndex: number, tagToRemove: string) {
+    this.tasks[tagIndex].tags = this.tasks[tagIndex].tags.filter(tag => {
+      return tag != tagToRemove
     })
   }
 }

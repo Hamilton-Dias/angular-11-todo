@@ -7,7 +7,7 @@
 </header> -->
 
 <main>
-  <div class="task-card" *ngFor="let task of tasks">
+  <div class="task-card" *ngFor="let task of tasks; let taskIndex = index">
     <div class="task-card-header">
       <h2>{{task.title}}</h2>
       <div class="actions">
@@ -24,7 +24,7 @@
     <div class="task-card-footer">
       <div class="tag-item" *ngFor="let tag of task.tags">
         <span>{{tag}}</span>
-        <i class="fa fa-times"></i>
+        <i class="fa fa-times" (click)="removeTagFromTask(taskIndex, tag)"></i>
       </div>
     </div>
   </div>
