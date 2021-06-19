@@ -64,6 +64,15 @@ main {
 
             p:first-child {
                 margin: 10px 0;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                display: -webkit-box;
+                -webkit-box-orient: vertical;
+                line-height: 16px;
+            }
+
+            p.hide-text {
+                -webkit-line-clamp: 2;
             }
         }
 
