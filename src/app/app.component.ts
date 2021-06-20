@@ -87,4 +87,8 @@ export class AppComponent {
   toggleCompletion(taskIndex: number) {
     this.tasks[taskIndex].isCompleted = !this.tasks[taskIndex].isCompleted
   }
+
+  isLate(date: string) {
+    return new Date() > new Date(date.split('/').reverse().join('/'));
+  }
 }

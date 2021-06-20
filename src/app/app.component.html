@@ -7,7 +7,7 @@
 </header> -->
 
 <main>
-  <div class="task-card" [ngClass]="{'completed': task.isCompleted}" *ngFor="let task of tasks; let taskIndex = index">
+  <div class="task-card" [ngClass]="{'completed': task.isCompleted, 'late': isLate(task.limitDate)}" *ngFor="let task of tasks; let taskIndex = index">
     <div class="task-card-header">
       <h2>{{task.title}}</h2>
       <div class="actions">
@@ -19,8 +19,8 @@
       <p #p [ngClass]="{'hide-text': isTextBiggerThan2Lines(p, task.description)}">
         {{task.description}}
       </p>
-      <button #btn (click)="toggleText(btn)" *ngIf="isTextBiggerThan2Lines(p, task.description)">Mostrar mais</button>
       <p><b>Data limite: </b>{{task.limitDate}}</p>
+      <button #btn (click)="toggleText(btn)" *ngIf="isTextBiggerThan2Lines(p, task.description)">Mostrar mais</button>
     </div>
     <div class="task-card-footer">
       <div class="tag-item" *ngFor="let tag of task.tags">
