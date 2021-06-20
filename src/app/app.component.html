@@ -1,10 +1,10 @@
-<!-- <header>
+<header>
+  <!-- <input type="text" />
   <input type="text" />
   <input type="text" />
-  <input type="text" />
-  <input type="text" />
-  <button type="button">Cadastrar tarefa</button>
-</header> -->
+  <input type="text" /> -->
+  <button type="button" (click)="toggleModal()">Cadastrar tarefa</button>
+</header>
 
 <main>
   <div class="task-card" [ngClass]="{'completed': task.isCompleted, 'late': isLate(task.limitDate)}" *ngFor="let task of tasks; let taskIndex = index">
@@ -30,3 +30,15 @@
     </div>
   </div>
 </main>
+
+<div class="modal" [ngClass]="{'visible': isModalVisible}">
+  <label class="modal__bg" for="modal-1" (click)="toggleModal()"></label>
+  <div class="modal__inner">
+    <label class="modal__close" for="modal-1" (click)="toggleModal()"></label>
+    <form (ngSubmit)="formSubmit($event)">
+      <input type="text" ng-model="newTask.title" />
+
+      <input type="submit" value="Salvar" />
+    </form>
+  </div>
+</div>

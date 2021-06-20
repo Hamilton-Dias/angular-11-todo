@@ -17,6 +17,8 @@ interface Task {
 })
 export class AppComponent {
   title = 'todo';
+  isModalVisible = false;
+  newTask = {} as Task;
 
   tasks: Task[] = [
     {
@@ -90,5 +92,15 @@ export class AppComponent {
 
   isLate(date: string) {
     return new Date() > new Date(date.split('/').reverse().join('/'));
+  }
+
+  toggleModal() {
+    this.isModalVisible = !this.isModalVisible;
+  }
+
+  formSubmit(event: Event) {
+    event.preventDefault();
+    console.log(this.newTask)
+    this.newTask = {} as Task;
   }
 }
