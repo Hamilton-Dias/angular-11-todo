@@ -7,11 +7,11 @@
 </header> -->
 
 <main>
-  <div class="task-card" *ngFor="let task of tasks; let taskIndex = index">
+  <div class="task-card" [ngClass]="{'completed': task.isCompleted}" *ngFor="let task of tasks; let taskIndex = index">
     <div class="task-card-header">
       <h2>{{task.title}}</h2>
       <div class="actions">
-        <input type="checkbox" />
+        <input type="checkbox" (click)="toggleCompletion(taskIndex)"/>
         <button class="fa fa-trash" (click)="removeTask(task._id)"></button>
       </div>
     </div>

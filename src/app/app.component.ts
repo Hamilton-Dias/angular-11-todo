@@ -7,6 +7,7 @@ interface Task {
   description: string;
   limitDate: string;
   tags: string[];
+  isCompleted: boolean;
 }
 
 @Component({
@@ -23,21 +24,24 @@ export class AppComponent {
       title: 'Tomar banho',
       description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
       limitDate: '20/12/2021',
-      tags: ["Limpeza", "Corpo", "Bem estar"]
+      tags: ["Limpeza", "Corpo", "Bem estar"],
+      isCompleted: false
     },
     {
       _id: uuidv4(),
       title: 'Comer',
       description: 'Comer para aguentar o dia inteiro',
       limitDate: '10/02/2021',
-      tags: ["Corpo", "Bem estar", "Comida"]
+      tags: ["Corpo", "Bem estar", "Comida"],
+      isCompleted: false
     },
     {
       _id: uuidv4(),
       title: 'Trabalhar',
       description: 'Ir ao trabalho todo dia',
       limitDate: '05/01/2021',
-      tags: ["Trabalho", "Obrigação"]
+      tags: ["Trabalho", "Obrigação"],
+      isCompleted: false
     }
   ];
 
@@ -78,5 +82,9 @@ export class AppComponent {
       button.innerHTML = 'Mostrar mais';
       paragraph?.classList.add(className);
     }
+  }
+
+  toggleCompletion(taskIndex: number) {
+    this.tasks[taskIndex].isCompleted = !this.tasks[taskIndex].isCompleted
   }
 }
