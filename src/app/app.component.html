@@ -19,7 +19,7 @@
       <p #p [ngClass]="{'hide-text': isTextBiggerThan2Lines(p, task.description)}">
         {{task.description}}
       </p>
-      <button #btn (click)="toggleText(btn)">Mostrar mais</button>
+      <button #btn (click)="toggleText(btn)" *ngIf="isTextBiggerThan2Lines(p, task.description)">Mostrar mais</button>
       <p><b>Data limite: </b>{{task.limitDate}}</p>
     </div>
     <div class="task-card-footer">

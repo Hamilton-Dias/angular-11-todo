@@ -68,6 +68,15 @@ export class AppComponent {
   }
 
   toggleText(button: HTMLElement) {
-    button.innerHTML = 'Esconder'
+    const className = 'hide-text';
+    const paragraph = button.parentElement?.querySelector('p');
+
+    if (paragraph?.classList.contains(className)) {
+      button.innerHTML = 'Esconder';
+      paragraph?.classList.remove(className);
+    } else {
+      button.innerHTML = 'Mostrar mais';
+      paragraph?.classList.add(className);
+    }
   }
 }
