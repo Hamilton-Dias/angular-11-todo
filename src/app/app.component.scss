@@ -215,13 +215,67 @@ main {
         right: 0;
         bottom: 0;
         left: 0;
-        width: 50%;
+        width: 40%;
         margin: auto;
         overflow: auto;
         background: #fff;
         border-radius: 5px;
-        padding: 1em 2em;
-        height: 50%;
+        padding: 10px 20px;
+        height: 70%;
+
+        h2 {
+            font-size: 22px;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .form-group {
+            width: 100%;
+            margin: 15px 0;
+
+            i {
+                width: 7%;
+            }
+
+            label, input, textarea {
+                width: 93%;                
+            }
+
+            input, textarea {
+                padding: 10px;
+                transition: 0.5s all;
+
+                &:focus {
+                    outline: none;
+                }
+            }
+
+            p.tip {
+                font-size: 12px;
+                color: red;
+                margin-left: 7%;
+            }
+
+            input[type=submit] {
+                text-align: center;
+                width: 100%;
+                margin-top: 20px;
+                padding: 5px 10px;
+                color: #fff;
+                background-color: #28a745;
+                border-color: #28a745;
+                border: 1px solid transparent;
+                font-size: 16px;
+                line-height: 1.5;
+                border-radius: 4px;        
+
+                &:hover {
+                    background-color: #1e7e34;
+                    border-color: #1c7430;
+                    cursor: pointer;
+                }
+            }
+        }
     }
 
     .modal__close {

@@ -7,6 +7,7 @@ interface Task {
   description: string;
   limitDate: string;
   tags: string[];
+  tagsForm?: string;
   isCompleted: boolean;
 }
 
@@ -98,9 +99,16 @@ export class AppComponent {
     this.isModalVisible = !this.isModalVisible;
   }
 
-  formSubmit(event: Event) {
-    event.preventDefault();
-    console.log(this.newTask)
+  formSubmit() {
+
+    this.newTask._id = uuidv4();
+    this.newTask.tags = this.newTask.tagsForm ? this.newTask.tagsForm.split(',') : [];
+    this.newTask.limitDate = this.newTask.limitDate.split('-').reverse().join('/')
+
+    this.tasks.unshift(this.newTask);
+    
     this.newTask = {} as Task;
+
+    this.toggleModal();
   }
 }

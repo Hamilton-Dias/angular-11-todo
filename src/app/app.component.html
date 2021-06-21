@@ -34,11 +34,34 @@
 <div class="modal" [ngClass]="{'visible': isModalVisible}">
   <label class="modal__bg" for="modal-1" (click)="toggleModal()"></label>
   <div class="modal__inner">
+    <h2>Inserir nova tarefa</h2>
     <label class="modal__close" for="modal-1" (click)="toggleModal()"></label>
-    <form (ngSubmit)="formSubmit($event)">
-      <input type="text" ng-model="newTask.title" />
+    <form (ngSubmit)="formSubmit()">
+      <div class="form-group">
+        <i class="fa fa-pen-alt"></i>
+        <input type="text" id="newTaskTtile" placeholder="Título" [(ngModel)]="newTask.title" name="newTask.title" />
+      </div>
 
-      <input type="submit" value="Salvar" />
+      <div class="form-group">
+        <i class="fa fa-calendar-alt"></i>
+        <input type="date" id="newTaskTdate" placeholder="Data Limite" [(ngModel)]="newTask.limitDate" name="newTask.limitDate" />
+      </div>
+
+      <div class="form-group">
+        <i class="fa fa-file-signature"></i>
+        <textarea id="newTaskDescription" placeholder="Descrição" rows="5" [(ngModel)]="newTask.description" name="newTask.description" >
+        </textarea>
+      </div>
+
+      <div class="form-group">
+        <i class="fa fa-tags"></i>
+        <input type="text" id="newTaskTtags" placeholder="Tags" [(ngModel)]="newTask.tagsForm" name="newTask.tagsForm" />
+        <p class="tip">Separe as tags por víngula.</p>
+      </div>
+
+      <div class="form-group">
+        <input type="submit" value="Salvar" />
+      </div>
     </form>
   </div>
 </div>
