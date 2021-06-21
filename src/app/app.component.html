@@ -1,13 +1,17 @@
 <header>
-  <!-- <input type="text" />
-  <input type="text" />
-  <input type="text" />
-  <input type="text" /> -->
-  <button type="button" (click)="toggleModal()">Cadastrar tarefa</button>
+  <div class="header-wrapper">
+    <button type="button" (click)="toggleModal()">Cadastrar tarefa</button>
+    <div class="search-box">
+      <input class="search-input" type="text" [(ngModel)]="filter.title" name="filter.title" placeholder="Pesquise por título">
+      <a href="#" class="search-btn" (click)="filterTasks($event)">
+        <i class="fas fa-search"></i>
+      </a>     
+    </div>
+  </div>
 </header>
 
 <main>
-  <div class="task-card" [ngClass]="{'completed': task.isCompleted, 'late': isLate(task.limitDate)}" *ngFor="let task of tasks; let taskIndex = index">
+  <div class="task-card" [ngClass]="{'completed': task.isCompleted, 'late': isLate(task.limitDate)}" *ngFor="let task of filteredTasks; let taskIndex = index">
     <div class="task-card-header">
       <h2>{{task.title}}</h2>
       <div class="actions">

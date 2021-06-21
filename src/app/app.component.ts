@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { v4 as uuidv4 } from 'uuid';
 
 interface Task {
@@ -16,10 +16,21 @@ interface Task {
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
+
   title = 'todo';
   isModalVisible = false;
   newTask = {} as Task;
+  filter = {} as Task;
+  filteredTasks: Task[] = [];
+
+  ngOnInit() {
+    this.init();
+  }
+
+  init() {
+    this.filteredTasks = this.tasks;
+  }
 
   tasks: Task[] = [
     {
@@ -51,13 +62,17 @@ export class AppComponent {
   removeTask(id: string) {
     this.tasks = this.tasks.filter(task => {
       return task._id != id;
-    })
+    });
+
+    this.init();
   }
 
   removeTagFromTask(tagIndex: number, tagToRemove: string) {
     this.tasks[tagIndex].tags = this.tasks[tagIndex].tags.filter(tag => {
       return tag != tagToRemove;
-    })
+    });
+
+    this.init();
   }
 
   /*
@@ -88,7 +103,9 @@ export class AppComponent {
   }
 
   toggleCompletion(taskIndex: number) {
-    this.tasks[taskIndex].isCompleted = !this.tasks[taskIndex].isCompleted
+    this.tasks[taskIndex].isCompleted = !this.tasks[taskIndex].isCompleted;
+
+    this.init();
   }
 
   isLate(date: string) {
@@ -100,7 +117,6 @@ export class AppComponent {
   }
 
   formSubmit() {
-
     this.newTask._id = uuidv4();
     this.newTask.tags = this.newTask.tagsForm ? this.newTask.tagsForm.split(',') : [];
     this.newTask.limitDate = this.newTask.limitDate.split('-').reverse().join('/')
@@ -108,7 +124,16 @@ export class AppComponent {
     this.tasks.unshift(this.newTask);
     
     this.newTask = {} as Task;
+    this.init();
 
     this.toggleModal();
+  }
+
+  filterTasks(event: Event) {
+    event.preventDefault();
+
+    this.filteredTasks = this.tasks.filter(element => {
+      return (element.title.indexOf(this.filter?.title) !== -1)
+    })
   }
 }
