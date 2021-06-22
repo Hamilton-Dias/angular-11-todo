@@ -30,6 +30,7 @@ export class AppComponent implements OnInit {
   isModalFilterVisible = false;
   newTask = {} as Task;
   filter = {} as Filter;
+  filterBackup = {} as Filter;
   filteredTasks: Task[] = [];
 
   ngOnInit() {
@@ -124,6 +125,18 @@ export class AppComponent implements OnInit {
 
   toggleNewTaskModal() {
     this.isModalNewTaskVisible = !this.isModalNewTaskVisible;
+  }
+
+  openFilterModal() {
+    this.isModalFilterVisible = true;
+
+    this.filterBackup = this.filterBackup;
+  }
+
+  closeFilterModal() {
+    this.isModalFilterVisible = false;
+
+    this.filter = this.filterBackup;
   }
 
   toggleFilterModal() {

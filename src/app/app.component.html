@@ -2,7 +2,7 @@
   <div class="header-wrapper">
     <button type="button" (click)="toggleNewTaskModal()">Cadastrar tarefa</button>
     <div class="search-box">
-      <a href="#" class="search-link" title="Mais filtros" (click)="toggleFilterModal()">
+      <a href="#" class="search-link" title="Mais filtros" (click)="openFilterModal()">
         <i class="fas fa-plus"></i>
       </a>
       <input class="search-input" type="text" [(ngModel)]="filter.title" name="filter.title" placeholder="Pesquise por título">
@@ -74,10 +74,10 @@
 </div>
 
 <div class="modal" [ngClass]="{'visible': isModalFilterVisible}">
-  <label class="modal__bg" for="modal-1" (click)="toggleFilterModal()"></label>
+  <label class="modal__bg" for="modal-1" (click)="closeFilterModal()"></label>
   <div class="modal__inner">
     <h2>Filtros</h2>
-    <label class="modal__close" for="modal-1" (click)="toggleFilterModal()"></label>
+    <label class="modal__close" for="modal-1" (click)="closeFilterModal()"></label>
     <form (ngSubmit)="allFilterTasks()">
       <div class="form-group">
         <input type="text" class="w100" placeholder="Título" [(ngModel)]="filter.title" name="filter.title" />
