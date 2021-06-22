@@ -50,6 +50,25 @@ header {
                 width: 250px;
                 padding: 0 7px;
             }
+
+            .search-link {
+                border: none;
+                background: none;
+                outline: none;
+                float: left;
+                color: white;
+                padding: 0;
+                font-size: 20px;
+                transition: 0.4s;
+                width: 0;
+                visibility: hidden;
+            }
+
+            &:hover > .search-link {
+                width: 30px;
+                padding: 0 7px;
+                visibility: visible;
+            }
         }
     
         button {
@@ -285,7 +304,11 @@ main {
             }
 
             label, input, textarea {
-                width: 93%;                
+                width: 93%; 
+
+                &.w100 {
+                    width: 100% !important;
+                }               
             }
 
             input, textarea {
@@ -301,6 +324,15 @@ main {
                 font-size: 12px;
                 color: red;
                 margin-left: 7%;
+            }
+
+            button {
+                width: 100%;
+                padding: 5px 10px;
+
+                &:hover {
+                    cursor: pointer;
+                }
             }
 
             input[type=submit] {
@@ -320,6 +352,21 @@ main {
                     background-color: #1e7e34;
                     border-color: #1c7430;
                     cursor: pointer;
+                }
+            }
+
+            &.radios {
+                .radio-item {
+                    width: 33%;
+                    display: inline-block;
+
+                    label, input, textarea {
+                        width: unset;
+                    }
+
+                    label {
+                        margin-right: 5px;
+                    }
                 }
             }
         }

@@ -11,6 +11,13 @@ interface Task {
   isCompleted: boolean;
 }
 
+interface Filter {
+  title: string;
+  status: string;
+  limitDate: string;
+  tag: string;
+}
+
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -19,16 +26,13 @@ interface Task {
 export class AppComponent implements OnInit {
 
   title = 'todo';
-  isModalVisible = false;
+  isModalNewTaskVisible = false;
+  isModalFilterVisible = false;
   newTask = {} as Task;
-  filter = {} as Task;
+  filter = {} as Filter;
   filteredTasks: Task[] = [];
 
   ngOnInit() {
-    this.init();
-  }
-
-  init() {
     this.filteredTasks = this.tasks;
   }
 
@@ -63,16 +67,18 @@ export class AppComponent implements OnInit {
     this.tasks = this.tasks.filter(task => {
       return task._id != id;
     });
-
-    this.init();
   }
 
-  removeTagFromTask(tagIndex: number, tagToRemove: string) {
-    this.tasks[tagIndex].tags = this.tasks[tagIndex].tags.filter(tag => {
-      return tag != tagToRemove;
+  removeTagFromTask(id: string, tagToRemove: string) {
+    this.tasks.forEach(task => {
+      if (task._id === id) {
+        task.tags = task.tags.filter(tag => {
+          return tag != tagToRemove;
+        });
+      }
     });
-
-    this.init();
+    
+    this.filterTasks();
   }
 
   /*
@@ -102,18 +108,26 @@ export class AppComponent implements OnInit {
     }
   }
 
-  toggleCompletion(taskIndex: number) {
-    this.tasks[taskIndex].isCompleted = !this.tasks[taskIndex].isCompleted;
-
-    this.init();
+  toggleCompletion(id: string) {
+    this.tasks.forEach(task => {
+      if (task._id === id) {
+        task.isCompleted = !task.isCompleted;
+      }
+    });
+    
+    this.filterTasks();
   }
 
   isLate(date: string) {
     return new Date() > new Date(date.split('/').reverse().join('/'));
   }
 
-  toggleModal() {
-    this.isModalVisible = !this.isModalVisible;
+  toggleNewTaskModal() {
+    this.isModalNewTaskVisible = !this.isModalNewTaskVisible;
+  }
+
+  toggleFilterModal() {
+    this.isModalFilterVisible = !this.isModalFilterVisible;
   }
 
   formSubmit() {
@@ -124,16 +138,85 @@ export class AppComponent implements OnInit {
     this.tasks.unshift(this.newTask);
     
     this.newTask = {} as Task;
-    this.init();
+    this.filterTasks();
 
-    this.toggleModal();
+    this.toggleNewTaskModal();
   }
 
-  filterTasks(event: Event) {
-    event.preventDefault();
-
+  filterTasksByTitle() {
     this.filteredTasks = this.tasks.filter(element => {
-      return (element.title.indexOf(this.filter?.title) !== -1)
+      return this.isSubstringInsideString(element.title, this.filter?.title)
+    });
+  }
+
+  allFilterTasks() {
+    this.filterTasks();
+    this.toggleFilterModal();
+  }
+
+  filterTasks() {
+    this.filteredTasks = this.tasks.filter(element => {
+      return this.isTaskInsideFilter(element);
+    });
+  }
+
+  isTaskInsideFilter(task: Task) {
+    return (
+      this.isSubstringInsideString(task.title, this.filter.title)
+      && this.isTaskStatusSelected(task.isCompleted, this.filter.status)
+      && this.taskBeforeDate(task.limitDate, this.filter.limitDate)
+      && this.hasTag(task.tags, this.filter.tag)
+    )
+  }
+
+  isSubstringInsideString(string: string, substring = "") {
+    return (string.toLocaleLowerCase().indexOf(substring.toLocaleLowerCase()) !== -1)
+  }
+
+  isTaskStatusSelected(isTaskCompleted: boolean, filterStatus: string) {
+
+    let show = false;
+
+    switch (filterStatus) {
+      case "completed":
+        if (isTaskCompleted === true)
+          show = true;
+          break;
+      case "notCompleted":
+        if (isTaskCompleted === false)
+          show = true;
+          break;
+      default:
+        show = true;
+    }
+
+    return show;
+  }
+
+  taskBeforeDate(limit: string, date = "") {
+    if (date === "")
+      return true;
+
+    return new Date(date.split('-').join('/')) > new Date(limit.split('/').reverse().join('/'));
+  }
+
+  hasTag(tags: string[], tag = "") {
+    if (tag === "")
+      return true;
+
+    let taskHasTag = false;
+
+    tags.forEach(taskTag => {
+      if (taskTag.toLowerCase() === tag.toLowerCase()) {
+        taskHasTag = true;
+      }
     })
+    
+    return taskHasTag;
+  }
+
+  clearFilters() {
+    this.filter = {} as Filter;
+    this.toggleFilterModal();
   }
 }
